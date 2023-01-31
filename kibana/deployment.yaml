@@ -1,0 +1,33 @@
+# DEPLOY_FE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana-pods
+  namespace: test
+spec:
+  selector:
+    matchLabels:
+      app: test-kibana
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-kibana
+    spec:
+      containers:
+      - image: kibana:7.10.1
+        name: kibana-pods
+        imagePullPolicy: Always
+        env:
+        - name: ELASTICSEARCH_HOSTS
+          value: http://192.168.180.207:5200/
+        # - name: XPACK_MONITORING_ENABLED
+        #   value: "true"
+        # - name: XPACK_MONITORING_COLLECTION_ENABLED
+        #   value: "true"
+        # - name: XPACK_SECURITY_ENABLED
+        #   value: "true"
+        - name: ELASTICSEARCH_USERNAME
+          value: elastic
+        - name: ELASTICSEARCH_PASSWORD
+          value: 2o2!!m@

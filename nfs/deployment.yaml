@@ -1,0 +1,29 @@
+# DEPLOY_FE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-nfs
+  namespace: test
+spec:
+  selector:
+    matchLabels:
+      app: test-nfs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-nfs
+    spec:
+      hostname: meikel
+      volumes:
+      - name: test-nfs-data
+        persistentVolumeClaim:
+          claimName: pvc-postgre
+      containers:
+      - image: rabbitmq:3-management
+        volumeMounts:
+        # - mountPath: /var/lib/rabbitmq
+        - mountPath: /var/
+          name: test-nfs-data
+        name: imav2-svc-rabbitmq
+        imagePullPolicy: Always

@@ -1,0 +1,28 @@
+# SERVICE_FE
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-nginx-proxy-manager-service
+  namespace: test
+  # Labels
+  labels:
+    app: test-nginx-proxy-manager
+spec:
+    type: ClusterIP
+    ports:
+      - name: http
+        protocol: TCP
+        port: 8212
+        targetPort: 80
+      - name: http-2
+        protocol: TCP
+        port: 9212
+        targetPort: 81
+      - name: http-3
+        protocol: TCP
+        port: 6233
+        targetPort: 443
+    selector:
+      app: test-nginx-proxy-manager
+    externalIPs:
+      - 192.168.29.155
